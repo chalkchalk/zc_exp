@@ -1,0 +1,8 @@
+<launch>
+    <rosparam file="$(find zc_exp)/config/config_sim.yaml" command="load"/>
+    <!-- <include file="$(find zc_exp)/launch/multibot.launch"/> -->
+    <node pkg="zc_exp" type="experiment_node" name="experiment_node" output="screen"/>
+    <node pkg="joy" type="joy_node" name="joy_node" output="screen"/>
+
+    
+</launch>
