@@ -1,6 +1,28 @@
 #include "experiment_node.h"
 #include "utils.h"
 
+ExpLog::ExpLog()
+{
+    fout.open("/root/catkin_ws/src/zc_exp/src/log/" + Utils::get_date_time() +".csv", std::ios::out | std::ios::app);
+    std::cout << "log file created" << std::endl;
+    fout << "leader_x" << "," << "leader_y" << "," << "leader_theta" << ",";
+    fout << "leader_vel_linear" << "," << "leader_vel_angular";
+    for(int i = 0 ;i < NUM_OF_SENSOR; i++)
+    {
+        std::string sensor_name = "sensor_" + std::to_string(i);
+        fout << sensor_name + "_x" << "," << sensor_name + "_y" << "," << sensor_name + "_theta" << ",";
+        fout << sensor_name + "_vel_linear" << "," << sensor_name + "_vel_angular" << ",";
+        fout << "estimated_x" << "," << "estimated_y" << "," << "estimated_theta";
+    }
+    fout << "\n";
+
+}
+
+void ExpLog::record(double data[8 * NUM_OF_SENSOR + 5])
+{
+    
+}
+
 Experiment::Experiment(ros::NodeHandle &nh) : nh_(nh)
 {
     leader = new Leader(nh_,"bot1");

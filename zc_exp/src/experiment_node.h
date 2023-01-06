@@ -5,6 +5,19 @@
 #include "follower.h"
 #include "leader.h"
 #include "estimation.h"
+#include <iostream>
+#include <fstream>
+#include <sstream>
+#include <string>
+
+class ExpLog
+{
+public:
+    ExpLog();
+    void record(double data[8 * NUM_OF_SENSOR + 5]);   
+private:
+    std::fstream fout;
+};
 
 
 class Experiment
@@ -18,6 +31,7 @@ private:
     EstimationSystem estimation_system;
     Follower *follower[NUM_OF_SENSOR];
     Leader *leader;
+    ExpLog log;
     void publish_tf();
 };
 

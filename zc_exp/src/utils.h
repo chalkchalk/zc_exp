@@ -86,6 +86,7 @@ public:
     static Eigen::Vector2d calculate_displacement(Eigen::Vector2d lin_vel, double yaw_rate, double dt, bool use_approximated=false);
     static double calculate_included_angle(Eigen::Vector3d vec1, Eigen::Vector3d vec2);
     static Eigen::Matrix2d yaw_to_rotaion_mat(double yaw);
+    static std::string get_date_time();
 };
 
 

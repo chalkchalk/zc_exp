@@ -14,6 +14,10 @@ Follower::Follower(ros::NodeHandle &nh, std::string name, Eigen::Vector2d max_ve
         std::cout << "use_simulation_pose:" << std::endl;
         sub_current_pose_ = nh.subscribe(name_ + "/ground_truth_odom", 1, &Follower::gazebo_real_pose_callback, this);
     }
+    else
+    {
+        
+    }
 }
 
 void Follower::gazebo_real_pose_callback(const nav_msgs::Odometry &pose)
