@@ -6,22 +6,35 @@ ExpLog::ExpLog()
     fout.open("/root/catkin_ws/src/zc_exp/src/log/" + Utils::get_date_time() +".csv", std::ios::out | std::ios::app);
     std::cout << "log file created" << std::endl;
     fout << "leader_x" << "," << "leader_y" << "," << "leader_theta" << ",";
-    fout << "leader_vel_linear" << "," << "leader_vel_angular";
+    fout << "leader_vel_linear" << "," << "leader_vel_angular" << ",";
     for(int i = 0 ;i < NUM_OF_SENSOR; i++)
     {
-        std::string sensor_name = "sensor_" + std::to_string(i);
+        std::string sensor_name = "sensor_" + std::to_string(i + 1);
         fout << sensor_name + "_x" << "," << sensor_name + "_y" << "," << sensor_name + "_theta" << ",";
-        fout << sensor_name + "_vel_linear" << "," << sensor_name + "_vel_angular" << ",";
         fout << "estimated_x" << "," << "estimated_y" << "," << "estimated_theta";
+        if(i < NUM_OF_SENSOR - 1)
+        {
+            fout << ",";
+        }
+
     }
     fout << "\n";
 
 }
 
-void ExpLog::record(double data[8 * NUM_OF_SENSOR + 5])
+void ExpLog::record(double data[LOG_LEN])
 {
-    
+    for(int i = 0 ;i < LOG_LEN; i++)
+    {
+        fout << data[i];
+        if(i < LOG_LEN - 1)
+        {
+            fout << ",";
+        }
+    }
+    fout << "\n";
 }
+
 
 Experiment::Experiment(ros::NodeHandle &nh) : nh_(nh)
 {
@@ -52,8 +65,28 @@ void Experiment::step()
         //follower[i]->follow(Eigen::Vector2d(i + 1, - i * 2 - 1));
     }
     estimation_system.estimation_step(leader->get_current_pose(), leader->get_current_vel());
-
+    record_log();
     publish_tf();
+}
+
+void Experiment::record_log()
+{
+    double data[LOG_LEN];
+    data[0] = leader->get_current_pose()(1);
+    data[1] = leader->get_current_pose()(2);
+    data[2] = leader->get_current_pose()(0);
+    data[3] = leader->get_current_vel()(1);
+    data[4] = leader->get_current_vel()(0);
+    for(int i = 0 ;i < NUM_OF_SENSOR; i++)
+    {
+        data[i * DATA_SENSOR + DATA_LEADER + 0] = follower[i]->get_current_pose()(1);
+        data[i * DATA_SENSOR + DATA_LEADER + 1] = follower[i]->get_current_pose()(2);
+        data[i * DATA_SENSOR + DATA_LEADER + 2] = follower[i]->get_current_pose()(0);
+        data[i * DATA_SENSOR + DATA_LEADER + 3] = estimation_system.sensors[i].hat_r1(1);
+        data[i * DATA_SENSOR + DATA_LEADER + 4] = estimation_system.sensors[i].hat_r1(2);
+        data[i * DATA_SENSOR + DATA_LEADER + 5] = estimation_system.sensors[i].hat_r1(0);
+    }
+    log.record(data);
 }
 
 int main(int argc, char **argv)
@@ -74,3 +107,5 @@ int main(int argc, char **argv)
     }
     return 0;
 }
+
+
