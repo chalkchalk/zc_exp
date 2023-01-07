@@ -23,8 +23,8 @@ private:
     ros::Subscriber sub_odom_;
     ros::Subscriber sub_joy_;
     std::string name_;
-    Eigen::Vector2d max_velocity_;
-    Eigen::Vector3d velocity_now_;
+    Eigen::Vector2d max_velocity_; 
+    Eigen::Vector3d velocity_now_; // theta, x, y,
     geometry_msgs::Twist cmd_vel_;
     Eigen::Vector3d current_pose_; // theta, x, y,
     tf::TransformBroadcaster tf_broadcaster_;

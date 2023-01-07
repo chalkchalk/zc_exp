@@ -16,7 +16,7 @@ public:
     Eigen::Vector3d pos_leader;
     Eigen::Vector3d vel_leader;
     Eigen::Vector3d hat_r_ic;
-    Eigen::Vector3d hat_r1;
+    Eigen::Vector3d hat_r1; // theta, x, y
     Eigen::Matrix3d P_ic;
     Eigen::Matrix3d P_0;
     Eigen::Matrix3d P_1;

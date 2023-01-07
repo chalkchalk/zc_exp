@@ -12,13 +12,13 @@
   <arg name="bot1_z_pos" default="0.0"/>
   <arg name="bot1_yaw"   default="0.0"/>
 
-  <arg name="bot2_x_pos" default="0.0"/>
+  <arg name="bot2_x_pos" default="1.0"/>
   <arg name="bot2_y_pos" default="0.0"/>
   <arg name="bot2_z_pos" default="0.0"/>
   <arg name="bot2_yaw"   default="0.0"/>
   
-  <arg name="bot3_x_pos" default="-1.0"/>
-  <arg name="bot3_y_pos" default="0.0"/>
+  <arg name="bot3_x_pos" default="0.0"/>
+  <arg name="bot3_y_pos" default="-1.0"/>
   <arg name="bot3_z_pos" default="0.0"/>
   <arg name="bot3_yaw"   default="0.0"/>
 
@@ -28,11 +28,11 @@
   <arg name="bot4_yaw"   default="0.0"/>
 
   <arg name="bot5_x_pos" default="0.0"/>
-  <arg name="bot5_y_pos" default="-1.0"/>
+  <arg name="bot5_y_pos" default="0.0"/>
   <arg name="bot5_z_pos" default="0.0"/>
   <arg name="bot5_yaw"   default="0.0"/>
 
-  <arg name="bot6_x_pos" default="1.0"/>
+  <arg name="bot6_x_pos" default="-1.0"/>
   <arg name="bot6_y_pos" default="0.0"/>
   <arg name="bot6_z_pos" default="0.0"/>
   <arg name="bot6_yaw"   default="0.0"/>

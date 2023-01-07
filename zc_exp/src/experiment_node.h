@@ -10,11 +10,14 @@
 #include <sstream>
 #include <string>
 
+#define DATA_SENSOR 6
+#define DATA_LEADER 5
+#define LOG_LEN (NUM_OF_SENSOR * DATA_SENSOR + DATA_LEADER)
 class ExpLog
 {
 public:
     ExpLog();
-    void record(double data[8 * NUM_OF_SENSOR + 5]);   
+    void record(double data[LOG_LEN]);   
 private:
     std::fstream fout;
 };
@@ -33,6 +36,7 @@ private:
     Leader *leader;
     ExpLog log;
     void publish_tf();
+    void record_log();
 };
 
 #endif
