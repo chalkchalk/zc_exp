@@ -30,6 +30,8 @@ public:
     void step();
 
 private:
+    bool is_start;
+    bool is_simulation;
     ros::NodeHandle nh_;
     EstimationSystem estimation_system;
     Follower *follower[NUM_OF_SENSOR];

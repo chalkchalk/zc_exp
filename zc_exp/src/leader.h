@@ -7,6 +7,7 @@
 #include <nav_msgs/Odometry.h>
 #include "sensor_msgs/Joy.h"
 #include <tf/transform_broadcaster.h>
+#include <geometry_msgs/PoseStamped.h>
 
 class Leader
 {
@@ -16,6 +17,7 @@ public:
     Eigen::Vector3d get_current_vel(){return velocity_now_;}
     void move();
     void publish_tf();
+    bool has_moved(){return vel_received;}
 private:
     ros::NodeHandle nh_;
     ros::Publisher pub_cmd_vel;
@@ -23,15 +25,16 @@ private:
     ros::Subscriber sub_odom_;
     ros::Subscriber sub_joy_;
     std::string name_;
+    bool is_simulation;
     Eigen::Vector2d max_velocity_; 
     Eigen::Vector3d velocity_now_; // theta, x, y,
     geometry_msgs::Twist cmd_vel_;
     Eigen::Vector3d current_pose_; // theta, x, y,
     tf::TransformBroadcaster tf_broadcaster_;
-
+    bool vel_received;
     void gazebo_real_pose_callback(const nav_msgs::Odometry &pose);
     void vrpn_pose_callback(const geometry_msgs::PoseStamped &pose);
-    void gazebo_odom_callback(const nav_msgs::Odometry &odom);
+    void odom_callback(const nav_msgs::Odometry &odom);
     void joy_msg_callback(const sensor_msgs::Joy &msg);
 };
 

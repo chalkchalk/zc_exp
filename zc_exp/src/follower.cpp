@@ -48,7 +48,7 @@ void Follower::calculate_follow_speed()
     double delta_angle = Utils::periodical_clamp(goal_angle - current_pose_(0), -PI, PI, 2 * PI);
     cmd_vel_.linear.x = Utils::clamp(follow_kp_(0) * goal_delta_pose.norm() * cos(delta_angle), -max_velocity_(0),  max_velocity_(0));
     cmd_vel_.angular.z = Utils::clamp(follow_kp_(1) * delta_angle, -max_velocity_(1),  max_velocity_(1));
-    if(goal_delta_pose.norm() < 0.01 || goal_delta_pose.norm() > 100)
+    if(goal_delta_pose.norm() < 0.08 || goal_delta_pose.norm() > 100)
     {
         cmd_vel_.linear.x = 0;
         cmd_vel_.angular.z = 0;
@@ -58,18 +58,26 @@ void Follower::calculate_follow_speed()
 void Follower::follow(Eigen::Vector2d target)
 {
     following_target_ = target;
+
     if(!pose_received_)
     {
-        return;
+        cmd_vel_.linear.x = 0;
+        cmd_vel_.angular.z = 0;
     }
-    calculate_follow_speed();
-
-    // cmd_vel_.linear.x = 0;
-    // cmd_vel_.angular.z = 0;
-
+    else
+    {
+        calculate_follow_speed();
+    }
 
     pub_cmd_vel.publish(cmd_vel_);
     publish_follow_pose();
+}
+
+void Follower::stop()
+{
+    cmd_vel_.linear.x = 0;
+    cmd_vel_.angular.z = 0;
+    pub_cmd_vel.publish(cmd_vel_);
 }
 
 void Follower::publish_tf()

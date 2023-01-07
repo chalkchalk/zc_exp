@@ -1,5 +1,5 @@
 <launch>
-    <rosparam file="$(find zc_exp)/config/config_sim.yaml" command="load"/>
+    <rosparam file="$(find zc_exp)/config/config_real.yaml" command="load"/>
     
     <arg name="bot1"  default="bot1"/>
     <arg name="bot2"  default="burger1"/>
@@ -9,7 +9,7 @@
     <arg name="bot6"  default="burger5"/>
 
     <node pkg="zc_exp" type="experiment_node" name="experiment_node" output="screen"/>
-    <node pkg="joy" type="joy_node" name="joy_node" output="screen"/>
+    <!-- <node pkg="joy" type="joy_node" name="joy_node" output="screen"/> -->
 
-    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find zc_exp)/config/rviz.rviz" respawn="true"/>
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find zc_exp)/config/real.rviz" respawn="true"/>
 </launch>

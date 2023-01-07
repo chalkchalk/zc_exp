@@ -16,7 +16,7 @@ SensorNode::SensorNode()
     P_0.setIdentity();
     R = 0.00001 * Eigen::Matrix3d::Identity();
     Q = 0.00001 * Eigen::Matrix3d::Identity();
-    Rs = 6.0;
+    Rs = 8.0; // 6.0
     psi_0 = 0.7;
     tau_psi = 0.8;
     pos_follow = Eigen::Vector2d(1e5, 1e5);
@@ -44,7 +44,7 @@ void SensorNode::update_step(int time_k)
         if (time_k % 8 == 0)
         {
             if(index == 2)
-            {
+            {//2
                 z = 2 * (H * (pos_leader - pos_now)) + Eigen::EigenMultivariateNormal<double>(Eigen::Vector3d::Zero(), R).samples(1);
             }
             else
@@ -62,7 +62,7 @@ void SensorNode::update_step(int time_k)
             if (time_k % 8 == 4)
             {
                 if (index == 1)
-                {
+                {//3
                     z = 3 * (H * (pos_leader - pos_now)) + Eigen::EigenMultivariateNormal<double>(Eigen::Vector3d::Zero(), R).samples(1);
                 }
                 else
@@ -86,6 +86,11 @@ void SensorNode::update_step(int time_k)
         // delta_h(3*i-2:3*i,k)=z(3*i-2:3*i,k)-H(3*i-2:3*i,3*k-2:3*k)*(hat_r_ic(3*i-2:3*i,k)-s(3*i-2:3*i,k));%观测残差
         // psi(k)=psi_0*inv((k+1)^tau_psi);%计算时变邻域值\psi_k
         double Phi_k;
+
+
+
+
+
         if(delta_h.norm() <= psi_k)
         {
             Phi_k = 1;
@@ -93,7 +98,16 @@ void SensorNode::update_step(int time_k)
         else
         {
             Phi_k = psi_k / delta_h.norm();
-        }
+        } //TODO
+
+
+
+
+
+
+
+
+
         // if norm(delta_h(3*i-2:3*i,k),2)<=psi(k)
         //     Phi(i,k)=1;
         // else

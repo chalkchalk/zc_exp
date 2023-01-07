@@ -14,10 +14,11 @@
 class Follower
 {
 public:
-    Follower(ros::NodeHandle &nh, std::string name, Eigen::Vector2d max_velocity=Eigen::Vector2d(0.2, 2.8), Eigen::Vector2d follow_kp=Eigen::Vector2d(1.2, 0.8));
+    Follower(ros::NodeHandle &nh, std::string name, Eigen::Vector2d max_velocity=Eigen::Vector2d(0.2, 2.8), Eigen::Vector2d follow_kp=Eigen::Vector2d(0.8, 0.8));
     void follow(Eigen::Vector2d target);
     Eigen::Vector3d get_current_pose(){return current_pose_;}
     void publish_tf();
+    void stop();
 private: 
     ros::NodeHandle nh_;
     ros::Publisher pub_cmd_vel;
