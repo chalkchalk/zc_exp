@@ -10,10 +10,22 @@ Leader::Leader(ros::NodeHandle &nh, std::string name, Eigen::Vector2d max_veloci
     {
         sub_current_pose_ = nh.subscribe(name_ + "/ground_truth_odom", 1, &Leader::gazebo_real_pose_callback, this);
     }
+    else
+    {
+        std::cout << "use_vrpn_pose:" << std::endl;
+        sub_current_pose_ = nh.subscribe("/vrpn_client_node/" + name_ + "/pose", 1, &Leader::vrpn_pose_callback, this);
+    }
     sub_odom_ = nh.subscribe(name_ + "/odom", 1, &Leader::gazebo_odom_callback, this);
     sub_joy_ = nh_.subscribe("/joy", 10, &Leader::joy_msg_callback, this); 
     current_pose_ = Eigen::Vector3d(1e5, 1e5, 1e5);
     velocity_now_ = Eigen::Vector3d(1e5, 1e5, 1e5);
+}
+
+void Leader::vrpn_pose_callback(const geometry_msgs::PoseStamped &pose)
+{
+    current_pose_(1) = pose.pose.position.x;
+    current_pose_(2) = pose.pose.position.y;
+    current_pose_(0) = Utils::quat_to_euler(Eigen::Quaterniond(pose.pose.orientation.w, pose.pose.orientation.x, pose.pose.orientation.y, pose.pose.orientation.z))(2);
 }
 
 void Leader::gazebo_real_pose_callback(const nav_msgs::Odometry &pose)

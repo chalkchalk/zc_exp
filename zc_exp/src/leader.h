@@ -30,6 +30,7 @@ private:
     tf::TransformBroadcaster tf_broadcaster_;
 
     void gazebo_real_pose_callback(const nav_msgs::Odometry &pose);
+    void vrpn_pose_callback(const geometry_msgs::PoseStamped &pose);
     void gazebo_odom_callback(const nav_msgs::Odometry &odom);
     void joy_msg_callback(const sensor_msgs::Joy &msg);
 };

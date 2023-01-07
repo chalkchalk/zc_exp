@@ -16,7 +16,8 @@ Follower::Follower(ros::NodeHandle &nh, std::string name, Eigen::Vector2d max_ve
     }
     else
     {
-        
+        std::cout << "use_vrpn_pose:" << std::endl;
+        sub_current_pose_ = nh.subscribe("/vrpn_client_node/" + name_ + "/pose", 1, &Follower::vrpn_pose_callback, this);
     }
 }
 
@@ -26,6 +27,14 @@ void Follower::gazebo_real_pose_callback(const nav_msgs::Odometry &pose)
     current_pose_(1) = pose.pose.pose.position.x;
     current_pose_(2) = pose.pose.pose.position.y;
     current_pose_(0) = Utils::quat_to_euler(Eigen::Quaterniond(pose.pose.pose.orientation.w, pose.pose.pose.orientation.x, pose.pose.pose.orientation.y, pose.pose.pose.orientation.z))(2);
+}
+
+void Follower::vrpn_pose_callback(const geometry_msgs::PoseStamped &pose)
+{
+    pose_received_ = true;
+    current_pose_(1) = pose.pose.position.x;
+    current_pose_(2) = pose.pose.position.y;
+    current_pose_(0) = Utils::quat_to_euler(Eigen::Quaterniond(pose.pose.orientation.w, pose.pose.orientation.x, pose.pose.orientation.y, pose.pose.orientation.z))(2);
 }
 
 void Follower::calculate_follow_speed()
