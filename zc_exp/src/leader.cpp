@@ -4,7 +4,7 @@
 Leader::Leader(ros::NodeHandle &nh, std::string name, Eigen::Vector2d max_velocity) : nh_(nh), name_(name), max_velocity_(max_velocity)
 {
     pub_cmd_vel = nh.advertise<geometry_msgs::Twist>(name_ + "/cmd_vel", 100);
-    
+    event_received_ = false;
     nh.getParam("is_simulation", is_simulation);
     if(is_simulation)
     {
@@ -50,6 +50,17 @@ void Leader::joy_msg_callback(const sensor_msgs::Joy &msg)
     if(cmd_vel_.linear.x > 0.05)
     {
         vel_received = true;
+    }
+
+    if(msg.buttons[0])
+    {
+        event_received_ = true;
+        std::cout << "event_received: true" << std::endl;
+    }
+    if(msg.buttons[1])
+    {
+        event_received_ = false;
+        std::cout << "event_received: false" << std::endl;
     }
 
 }

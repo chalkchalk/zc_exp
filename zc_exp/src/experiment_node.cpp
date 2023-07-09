@@ -83,6 +83,9 @@ void Experiment::publish_tf()
 void Experiment::step()
 {
     leader->move();
+    #ifdef COMPARE
+    estimation_system.start_attack = leader->event_received();
+    #endif
     if (leader->has_moved())
     {
         for (int i = 0; i < NUM_OF_SENSOR; i++)

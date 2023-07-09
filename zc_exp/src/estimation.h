@@ -38,7 +38,6 @@ class EstimationSystem
 public:
     EstimationSystem();
     void estimation_step(Eigen::Vector3d pos_leader, Eigen::Vector3d vel);
-    void update_leader_pose_vel(Eigen::Vector3d pos, Eigen::Vector3d vel);
     SensorNode sensors[NUM_OF_SENSOR];
 private:
     Eigen::Matrix<double, NUM_OF_SENSOR, NUM_OF_SENSOR> A1;
@@ -52,6 +51,7 @@ private:
     void consensus_step();
     void update_step();
     void propagation_step();
+    void update_leader_pose_vel(Eigen::Vector3d pos, Eigen::Vector3d vel);
 
 };
 

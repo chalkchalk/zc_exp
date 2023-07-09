@@ -44,6 +44,7 @@ add_library(exp_lib
         src/leader.cpp
         src/leader.h
         src/eigenmvn.h
+        src/estimation_compare.cpp
         )
 
 target_link_libraries(exp_lib ${catkin_LIBRARIES})
