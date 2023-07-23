@@ -11,12 +11,12 @@ Follower::Follower(ros::NodeHandle &nh, std::string name, Eigen::Vector2d max_ve
     current_pose_ = Eigen::Vector3d(1e5, 1e5, 1e5);
     if(is_simulation)
     {
-        std::cout << "use_simulation_pose:" << std::endl;
+        std::cout << "use_simulation_pose:" << name_ + "/ground_truth_odom" << std::endl;
         sub_current_pose_ = nh.subscribe(name_ + "/ground_truth_odom", 1, &Follower::gazebo_real_pose_callback, this);
     }
     else
     {
-        std::cout << "use_vrpn_pose:" << std::endl;
+        std::cout << "use_vrpn_pose:" << name_ + "/ground_truth_odom" << std::endl;
         sub_current_pose_ = nh.subscribe("/vrpn_client_node/" + name_ + "/pose", 1, &Follower::vrpn_pose_callback, this);
     }
 }

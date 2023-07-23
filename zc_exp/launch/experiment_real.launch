@@ -1,12 +1,12 @@
 <launch>
     <rosparam file="$(find zc_exp)/config/config_real.yaml" command="load"/>
     
-    <arg name="bot1"  default="bot1"/>
-    <arg name="bot2"  default="burger1"/>
-    <arg name="bot3"  default="burger2"/>
-    <arg name="bot4"  default="burger3"/>
-    <arg name="bot5"  default="burger4"/>
-    <arg name="bot6"  default="burger5"/>
+    <arg name="bot1"  default="RosAria"/>
+    <arg name="bot2"  default="burger"/>
+    <arg name="bot3"  default="burger3"/>
+    <arg name="bot4"  default="burger4"/>
+    <arg name="bot5"  default="burger2"/>
+    <arg name="bot6"  default="burger6"/>
 
     <node pkg="zc_exp" type="experiment_node" name="experiment_node" output="screen"/>
     <!-- <node pkg="joy" type="joy_node" name="joy_node" output="screen"/> -->

@@ -43,7 +43,7 @@ void SensorNodeCompare::propagation_step(int time_k)
     q_0 = omega_0 * hat_r0;
     // q_0(3*i-2:3*i,k+1)=Omega_0(3*i-2:3*i,3*k+1:3*k+3)*hat_r0(3*i-2:3*i,k+1);
 
-    std::cout << index << ":" << hat_r1.transpose() << std::endl;
+    // std::cout << index << ":" << hat_r1.transpose() << std::endl;
     if (pose_history.size > 0)
     {
         if ((pose_history.get_data(0).block<2, 1>(1, 0) - hat_r1.block<2, 1>(1, 0)).norm() > 0.02)
@@ -87,9 +87,9 @@ void SensorNodeCompare::perceive_setp(int time_k)
         }
         else
         {
-            if (time_k % 8 == 0)
+            if (time_k % 4 == 0)
             {
-                if (index == 1)
+                if (index == 1 || 3)
                 { // 2
                     y = 3 * H * pos_leader - 2 * pos_now + Eigen::EigenMultivariateNormal<double>(Eigen::Vector3d::Zero(), R).samples(1);
                 }
@@ -98,9 +98,9 @@ void SensorNodeCompare::perceive_setp(int time_k)
                     y = H * pos_leader  + Eigen::EigenMultivariateNormal<double>(Eigen::Vector3d::Zero(), R).samples(1);
                 }
             }
-            else if (time_k % 8 == 4)
+            else if (time_k % 4 == 2)
             {
-                    if (index == 2)
+                    if (index == 2 || index == 4)
                     { // 3
                         y = 3 * H * pos_leader - 2 * pos_now + Eigen::EigenMultivariateNormal<double>(Eigen::Vector3d::Zero(), R).samples(1);
                     }

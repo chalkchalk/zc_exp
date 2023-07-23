@@ -62,6 +62,16 @@ void Leader::joy_msg_callback(const sensor_msgs::Joy &msg)
         event_received_ = false;
         std::cout << "event_received: false" << std::endl;
     }
+    if(msg.buttons[3])
+    {
+        stop_all_ = true;
+        std::cout << "stop_all_: true" << std::endl;
+    }
+    if(msg.buttons[4])
+    {
+        stop_all_ = false;
+        std::cout << "stop_all_: false" << std::endl;
+    }
 
 }
 

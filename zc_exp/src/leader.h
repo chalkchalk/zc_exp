@@ -19,6 +19,7 @@ public:
     void publish_tf();
     bool has_moved(){return vel_received;}
     bool event_received(){return event_received_;}
+    bool stop_all(){return stop_all_;}
 private:
     ros::NodeHandle nh_;
     ros::Publisher pub_cmd_vel;
@@ -28,6 +29,7 @@ private:
     std::string name_;
     bool is_simulation;
     bool event_received_;
+    bool stop_all_;
     Eigen::Vector2d max_velocity_; 
     Eigen::Vector3d velocity_now_; // theta, x, y,
     geometry_msgs::Twist cmd_vel_;

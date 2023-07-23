@@ -8,6 +8,8 @@ Panels:
         - /Status1
         - /Grid1/Offset1
         - /TF1/Frames1
+        - /PointStamped1
+        - /PointStamped3
         - /PointStamped4
         - /PointStamped5
       Splitter Ratio: 0.5
@@ -64,43 +66,15 @@ Visualization Manager:
           Value: true
         base_link:
           Value: true
-        burger1:
-          Value: true
-        burger2:
+        burger:
           Value: true
         burger3:
           Value: true
         burger4:
           Value: true
-        burger4/base_footprint:
-          Value: true
-        burger4/base_link:
-          Value: true
-        burger4/base_scan:
-          Value: true
-        burger4/caster_back_link:
-          Value: true
-        burger4/imu_link:
-          Value: true
-        burger4/odom:
-          Value: true
-        burger4/wheel_left_link:
-          Value: true
-        burger4/wheel_right_link:
-          Value: true
         burger5:
           Value: true
-        burger5/base_footprint:
-          Value: true
-        burger5/base_link:
-          Value: true
-        burger5/base_scan:
-          Value: true
-        burger5/caster_back_link:
-          Value: true
-        burger5/imu_link:
-          Value: true
-        burger5/odom:
+        burger6:
           Value: true
         odom:
           Value: true
@@ -116,15 +90,15 @@ Visualization Manager:
         world:
           RosAria:
             {}
-          burger1:
-            {}
-          burger2:
+          burger:
             {}
           burger3:
             {}
           burger4:
             {}
           burger5:
+            {}
+          burger6:
             {}
       Update Interval: 0
       Value: true
@@ -136,7 +110,7 @@ Visualization Manager:
       Name: PointStamped
       Queue Size: 10
       Radius: 0.10000000149011612
-      Topic: /burger1/follow_pose
+      Topic: /burger/follow_pose
       Unreliable: false
       Value: true
     - Alpha: 0.75
@@ -147,7 +121,7 @@ Visualization Manager:
       Name: PointStamped
       Queue Size: 10
       Radius: 0.10000000149011612
-      Topic: /burger2/follow_pose
+      Topic: /burger3/follow_pose
       Unreliable: false
       Value: true
     - Alpha: 0.75
@@ -158,7 +132,7 @@ Visualization Manager:
       Name: PointStamped
       Queue Size: 10
       Radius: 0.10000000149011612
-      Topic: /burger3/follow_pose
+      Topic: /burger4/follow_pose
       Unreliable: false
       Value: true
     - Alpha: 0.75
@@ -169,7 +143,7 @@ Visualization Manager:
       Name: PointStamped
       Queue Size: 10
       Radius: 0.10000000149011612
-      Topic: /burger4/follow_pose
+      Topic: /burger5/follow_pose
       Unreliable: false
       Value: true
     - Alpha: 0.75
@@ -180,7 +154,7 @@ Visualization Manager:
       Name: PointStamped
       Queue Size: 10
       Radius: 0.10000000149011612
-      Topic: /burger/follow_pose
+      Topic: /burger6/follow_pose
       Unreliable: false
       Value: true
   Enabled: true

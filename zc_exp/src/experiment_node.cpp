@@ -15,6 +15,8 @@ ExpLog::ExpLog()
     fout << "leader_vel_linear"
          << ","
          << "leader_vel_angular"
+         << ","
+         << "attack"
          << ",";
     for (int i = 0; i < NUM_OF_SENSOR; i++)
     {
@@ -86,7 +88,7 @@ void Experiment::step()
     #ifdef COMPARE
     estimation_system.start_attack = leader->event_received();
     #endif
-    if (leader->has_moved())
+    if (leader->has_moved() && !leader->stop_all())
     {
         for (int i = 0; i < NUM_OF_SENSOR; i++)
         {
@@ -123,6 +125,7 @@ void Experiment::record_log()
     data[2] = leader->get_current_pose()(0);
     data[3] = leader->get_current_vel()(1);
     data[4] = leader->get_current_vel()(0);
+    data[5] = leader->event_received();
     for (int i = 0; i < NUM_OF_SENSOR; i++)
     {
         data[i * DATA_SENSOR + DATA_LEADER + 0] = follower[i]->get_current_pose()(1);

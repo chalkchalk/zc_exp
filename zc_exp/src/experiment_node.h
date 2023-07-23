@@ -19,7 +19,7 @@
 #include <string>
 
 #define DATA_SENSOR 6
-#define DATA_LEADER 5
+#define DATA_LEADER 6
 #define LOG_LEN (NUM_OF_SENSOR * DATA_SENSOR + DATA_LEADER)
 class ExpLog
 {
